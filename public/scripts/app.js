@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -18,14 +18,18 @@ var IndecisionApp = function (_React$Component) {
    }
 
    _createClass(IndecisionApp, [{
-      key: "render",
+      key: 'render',
       value: function render() {
+         var title = 'Indecision';
+         var subTitle = 'Put you life in the hands of a computer';
+         var options = ['thing one', 'thing two', 'thing three', 'thing four'];
+
          return React.createElement(
-            "div",
-            { id: "container" },
-            React.createElement(Header, null),
+            'div',
+            { id: 'container' },
+            React.createElement(Header, { title: title, subTitle: subTitle }),
             React.createElement(Action, null),
-            React.createElement(Options, null),
+            React.createElement(Options, { options: options }),
             React.createElement(AddOption, null)
          );
       }
@@ -44,20 +48,21 @@ var Header = function (_React$Component2) {
    }
 
    _createClass(Header, [{
-      key: "render",
+      key: 'render',
       value: function render() {
+
          return React.createElement(
-            "div",
+            'div',
             null,
             React.createElement(
-               "h1",
+               'h1',
                null,
-               "Indecision App"
+               this.props.title
             ),
             React.createElement(
-               "h2",
+               'h2',
                null,
-               "Put you life in the hands of a computer"
+               this.props.subTitle
             )
          );
       }
@@ -76,15 +81,20 @@ var Action = function (_React$Component3) {
    }
 
    _createClass(Action, [{
-      key: "render",
+      key: 'handlePick',
+      value: function handlePick() {
+         alert('handlePick');
+      }
+   }, {
+      key: 'render',
       value: function render() {
          return React.createElement(
-            "div",
+            'div',
             null,
             React.createElement(
-               "button",
-               null,
-               "What should I do?"
+               'button',
+               { onClick: this.handlePick },
+               'What should I do?'
             )
          );
       }
@@ -103,17 +113,24 @@ var Options = function (_React$Component4) {
    }
 
    _createClass(Options, [{
-      key: "render",
+      key: 'handleRemoveAll',
+      value: function handleRemoveAll() {
+         alert('Remove All');
+      }
+   }, {
+      key: 'render',
       value: function render() {
          return React.createElement(
-            "div",
+            'div',
             null,
             React.createElement(
-               "p",
-               null,
-               "Options Components here"
+               'button',
+               { onClick: this.handleRemoveAll },
+               'Remove All'
             ),
-            React.createElement(Option, null)
+            this.props.options.map(function (option) {
+               return React.createElement(Option, { key: option, optionText: option });
+            })
          );
       }
    }]);
@@ -131,12 +148,12 @@ var Option = function (_React$Component5) {
    }
 
    _createClass(Option, [{
-      key: "render",
+      key: 'render',
       value: function render() {
          return React.createElement(
-            "div",
+            'div',
             null,
-            "Option component here!!!!!"
+            this.props.optionText
          );
       }
    }]);
@@ -154,15 +171,29 @@ var AddOption = function (_React$Component6) {
    }
 
    _createClass(AddOption, [{
-      key: "render",
+      key: 'handleAddOption',
+      value: function handleAddOption(e) {
+         e.preventDefault();
+         var option = e.target.elements.option.value.trim();
+         if (option) {
+            alert(option);
+         }
+      }
+   }, {
+      key: 'render',
       value: function render() {
          return React.createElement(
-            "div",
+            'div',
             null,
             React.createElement(
-               "p",
-               null,
-               "AddOptions componentes here "
+               'form',
+               { onSubmit: this.handleAddOption },
+               React.createElement('input', { type: 'text', name: 'option' }),
+               React.createElement(
+                  'button',
+                  null,
+                  'Add Option'
+               )
             )
          );
       }
