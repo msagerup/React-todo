@@ -1,38 +1,43 @@
-console.log('build-it is running!')
-
 const appRoot = document.getElementById('app');
-let vis = false;
 
-const showDetail = () => {
-   vis = !vis;
-   <p>Hello</p>
-   render()
+class VisablitlyToggle extends React.Component {
+   constructor(props){
+      super(props);
+      this.handleVisabilityToggle = this.handleVisabilityToggle.bind(this);
+      this.state = {
+         visability: false
+      }
+   }
+
+   handleVisabilityToggle() {
+      this.setState((prevState) => {
+         return {
+            visability: !prevState.visability
+            
+         };
+      });
+      console.log(this.state)
+
+   }
+
+   render() {
+      return (
+
+         <div>
+            <h2>Visablitly Toggle</h2>
+            <button onClick={this.handleVisabilityToggle}>
+            {this.state.visability ? 'Hide' : 'Show'}
+            </button>
+            {this.state.visability && (
+               <div>
+               <p>Hello, this is some info</p>
+               </div>
+               )}
+         </div>
+      );
+   }
 }
 
-
-
-const render = () => {
-   const template = (
-      <div>
-         <h2>Visablitly toggle</h2>
-
-         <button onClick = {showDetail}>
-            {vis ? 'Hide Details' : 'Show Details'}
-         </button>
-         {vis && (
-            <div>
-               <p>Hey these are some details you can see</p>
-            </div>
-
-
-            )}
-      </div>
-   )
-   ReactDOM.render(template, appRoot);
-};
-
-
-render();
-
+ReactDOM.render(<VisablitlyToggle />, appRoot);
 
 
