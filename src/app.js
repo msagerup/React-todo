@@ -19,7 +19,7 @@ class IndecisionApp extends React.Component {
    
 
   handleDeleteOption (option) {
-   console.log('hello')
+   console.log('hello', option)
   }
 
 
@@ -152,7 +152,7 @@ const Options = (props) => {
                props.options.map((option) => (
                   <Option key={option} 
                   optionText={option}
-                  handleDeleteOptions = {props.handleDeleteOption}
+                  handleDeleteOption = {props.handleDeleteOption}
 
                   />
                ))
@@ -183,7 +183,12 @@ const Option = (props) => {
    return (
          <div>
             {props.optionText}  
-            <button onClick={props.handleDeleteOption}>Remove </button>
+            <button 
+            onClick={(e) => {
+               props.handleDeleteOption(props.optionText);
+            }}
+            >Remove
+            </button>
          </div>
       );
 }
@@ -246,4 +251,3 @@ class AddOption extends React.Component {
 
 ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
 
-handleDeleteOption();

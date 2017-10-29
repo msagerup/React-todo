@@ -36,7 +36,7 @@ var IndecisionApp = function (_React$Component) {
    }, {
       key: 'handleDeleteOption',
       value: function handleDeleteOption(option) {
-         console.log('hello');
+         console.log('hello', option);
       }
    }, {
       key: 'handlePick',
@@ -177,7 +177,7 @@ var Options = function Options(props) {
       props.options.map(function (option) {
          return React.createElement(Option, { key: option,
             optionText: option,
-            handleDeleteOptions: props.handleDeleteOption
+            handleDeleteOption: props.handleDeleteOption
 
          });
       })
@@ -208,8 +208,12 @@ var Option = function Option(props) {
       props.optionText,
       React.createElement(
          'button',
-         { onClick: props.handleDeleteOption },
-         'Remove '
+         {
+            onClick: function onClick(e) {
+               props.handleDeleteOption(props.optionText);
+            }
+         },
+         'Remove'
       )
    );
 };
@@ -291,5 +295,3 @@ var AddOption = function (_React$Component2) {
 
 
 ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById('app'));
-
-handleDeleteOption();
